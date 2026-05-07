@@ -22,9 +22,9 @@ export class GameService {
   readonly megaWinner = computed(() => this.state().megaWinner);
   readonly megaCells = computed(() => this.state().megaCells);
 
-  private createInitialState(): GameState {
+  private createInitialState(startingPlayer: Player = 'X'): GameState {
     return {
-      currentPlayer: 'X',
+      currentPlayer: startingPlayer,
       nextBoard: null,
       miniStates: Array(9)
         .fill(null)
@@ -123,7 +123,7 @@ export class GameService {
     return !miniState.winner && !this.isFull(miniState.cells);
   }
 
-  resetGame(): void {
-    this.state.set(this.createInitialState());
+  resetGame(startingPlayer: Player = 'X'): void {
+    this.state.set(this.createInitialState(startingPlayer));
   }
 }

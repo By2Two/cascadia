@@ -64,10 +64,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ultimate-tictactoe:build:production"
+              "buildTarget": "cascadia:build:production"
             },
             "development": {
-              "buildTarget": "ultimate-tictactoe:build:development"
+              "buildTarget": "cascadia:build:development"
             }
           },
           "defaultConfiguration": "development"

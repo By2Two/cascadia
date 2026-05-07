@@ -1,0 +1,249 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: fade-in 0.4s ease forwards;
+
+  &.leaving {
+    animation: fade-out 0.4s ease forwards;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.5rem, 5vmin, 2.5rem);
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 8vmin, 4rem);
+  color: var(--text);
+  letter-spacing: 0.12em;
+  margin: 0;
+}
+
+.players {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 7vmin, 5rem);
+}
+
+.vs {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.2rem, 4vmin, 2rem);
+  color: var(--dim);
+  letter-spacing: 0.1em;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  transition:
+    transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.4s ease;
+
+  &.is-winner {
+    transform: scale(1.12);
+  }
+  &.is-loser {
+    opacity: 0.3;
+    transform: scale(0.88);
+  }
+}
+
+.label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 6vmin, 3rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+
+  &.x {
+    color: var(--x-color);
+  }
+  &.o {
+    color: var(--o-color);
+  }
+}
+
+$size: clamp(80px, 18vmin, 124px);
+
+.dice {
+  width: $size;
+  height: $size;
+  background: #16162a;
+  border-radius: clamp(10px, 2vmin, 18px);
+  border: 2px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: clamp(8px, 1.8vmin, 16px);
+  gap: clamp(4px, 1vmin, 8px);
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+
+  &.rolling {
+    animation: shake 0.14s linear infinite;
+  }
+
+  &.landed {
+    animation: land 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  &.glow-x {
+    border-color: var(--x-color);
+    box-shadow:
+      0 0 0 1px rgba(255, 64, 96, 0.3),
+      0 0 28px rgba(255, 64, 96, 0.55),
+      inset 0 0 14px rgba(255, 64, 96, 0.12);
+  }
+
+  &.glow-o {
+    border-color: var(--o-color);
+    box-shadow:
+      0 0 0 1px rgba(64, 208, 255, 0.3),
+      0 0 28px rgba(64, 208, 255, 0.55),
+      inset 0 0 14px rgba(64, 208, 255, 0.12);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(-5deg) translate(-1px, -1px);
+  }
+  25% {
+    transform: rotate(5deg) translate(2px, -1px);
+  }
+  50% {
+    transform: rotate(-4deg) translate(-1px, 2px);
+  }
+  75% {
+    transform: rotate(4deg) translate(2px, 1px);
+  }
+  100% {
+    transform: rotate(-5deg) translate(-1px, -1px);
+  }
+}
+
+@keyframes land {
+  0% {
+    transform: scale(1.25) rotate(-8deg);
+  }
+  55% {
+    transform: scale(0.93) rotate(3deg);
+  }
+  80% {
+    transform: scale(1.04) rotate(-1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+.dot {
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.05s ease;
+
+  &.on {
+    background: var(--text);
+  }
+}
+
+.value {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(1rem, 3vmin, 1.5rem);
+  color: var(--dim);
+  font-weight: 700;
+}
+
+.status-row {
+  height: clamp(2rem, 7vmin, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.12em;
+  margin: 0;
+  text-align: center;
+}
+
+.roll-text {
+  font-size: clamp(1rem, 3.5vmin, 1.8rem);
+  color: var(--dim);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.tie-text {
+  font-size: clamp(1rem, 3.5vmin, 1.8rem);
+  color: #ffd700;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+  animation: pop-in 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.winner-text {
+  font-size: clamp(1.6rem, 5.5vmin, 3.2rem);
+  animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  &.x {
+    color: var(--x-color);
+    text-shadow: 0 0 24px var(--x-color);
+  }
+  &.o {
+    color: var(--o-color);
+    text-shadow: 0 0 24px var(--o-color);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

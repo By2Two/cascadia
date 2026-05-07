@@ -1,3 +1,7 @@
+@if (showDiceRoll()) {
+  <app-dice-roll (rollComplete)="onDiceRollComplete($event)" />
+}
+
 <app-turn-display
   [currentPlayer]="currentPlayer()"
   [nextBoard]="nextBoard()"

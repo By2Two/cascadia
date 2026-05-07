@@ -1,0 +1,61 @@
+<div class="overlay" [class.leaving]="leaving()">
+  <div class="container">
+    <h2 class="title">WHO GOES FIRST?</h2>
+
+    <div class="players">
+      <div
+        class="player"
+        [class.is-winner]="winner() === 'X'"
+        [class.is-loser]="winner() !== null && winner() !== 'X'"
+      >
+        <span class="label x">X</span>
+        <div
+          class="dice"
+          [class.rolling]="phase() === 'rolling'"
+          [class.glow-x]="winner() === 'X'"
+          [class.landed]="phase() === 'result' || phase() === 'winner' || phase() === 'tie'"
+        >
+          @for (active of dots(xValue()); track $index) {
+            <span class="dot" [class.on]="active"></span>
+          }
+        </div>
+        <span class="value">{{ xValue() }}</span>
+      </div>
+
+      <div class="vs">VS</div>
+
+      <div
+        class="player"
+        [class.is-winner]="winner() === 'O'"
+        [class.is-loser]="winner() !== null && winner() !== 'O'"
+      >
+        <span class="label o">O</span>
+        <div
+          class="dice"
+          [class.rolling]="phase() === 'rolling'"
+          [class.glow-o]="winner() === 'O'"
+          [class.landed]="phase() === 'result' || phase() === 'winner' || phase() === 'tie'"
+        >
+          @for (active of dots(oValue()); track $index) {
+            <span class="dot" [class.on]="active"></span>
+          }
+        </div>
+        <span class="value">{{ oValue() }}</span>
+      </div>
+    </div>
+
+    <div class="status-row">
+      @if (phase() === 'rolling') {
+        <p class="status roll-text">ROLLING...</p>
+      }
+      @if (phase() === 'tie') {
+        <p class="status tie-text">TIE! ROLLING AGAIN...</p>
+      }
+      @if (phase() === 'winner') {
+        <p class="status winner-text" [class.x]="winner() === 'X'" [class.o]="winner() === 'O'">
+          {{ winner() }} GOES FIRST!
+        </p>
+      }
+    </div>
+  </div>
+</div>
