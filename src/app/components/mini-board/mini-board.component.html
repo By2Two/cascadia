@@ -1,0 +1,21 @@
+<div
+  class="mini-board"
+  [class.active]="isActive"
+  [class.won-x]="boardState.winner === 'X'"
+  [class.won-o]="boardState.winner === 'O'"
+  [class.drawn]="isDrawn"
+  [class.resetting]="isResetting"
+  [attr.data-winner]="boardState.winner"
+>
+  @if (showToast) {
+    <div class="draw-toast">DRAW! RESETTING...</div>
+  }
+
+  <app-cell
+    *ngFor="let index of getCells()"
+    [value]="boardState.cells[index]"
+    [isActive]="isActive && !boardState.winner"
+    [isJustPlayed]="lastPlayedCell === index"
+    (cellClick)="onCellClick(index)"
+  />
+</div>

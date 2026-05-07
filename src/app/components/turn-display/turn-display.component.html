@@ -1,0 +1,12 @@
+<div id="turn-display">
+  <div class="turn-side x-side" [class.active]="currentPlayer === 'X'">
+    <span class="turn-sym x">X</span>
+    <span class="turn-label">Player X</span>
+  </div>
+  <div class="turn-divider"></div>
+  <div class="turn-side o-side" [class.active]="currentPlayer === 'O'">
+    <span class="turn-sym o">O</span>
+    <span class="turn-label">Player O</span>
+  </div>
+</div>
+<div id="status-sub">{{ statusText }}</div>

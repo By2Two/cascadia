@@ -1,0 +1,43 @@
+:root {
+  --bg: #0a0a0f;
+  --panel: #12121a;
+  --border: #1e1e2e;
+  --x-color: #ff4060;
+  --o-color: #40d0ff;
+  --active: #ffd700;
+  --won-x: rgba(255, 64, 96, 0.15);
+  --won-o: rgba(64, 208, 255, 0.15);
+  --draw: rgba(100, 100, 120, 0.15);
+  --text: #e0e0f0;
+  --dim: #555570;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(8px, 2vh, 16px);
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(255, 64, 96, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(64, 208, 255, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}

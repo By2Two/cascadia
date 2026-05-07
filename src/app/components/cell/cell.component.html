@@ -1,0 +1,10 @@
+<div
+  class="cell"
+  [class.taken]="isTaken"
+  [class.disabled]="isDisabled && !isTaken"
+  [class.just-played]="isJustPlayed"
+  [attr.data-val]="value"
+  (click)="onClick()"
+>
+  {{ value }}
+</div>

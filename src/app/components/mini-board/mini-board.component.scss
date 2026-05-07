@@ -1,0 +1,137 @@
+.mini-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  padding: 8px;
+  background: var(--panel);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  transition:
+    border-color 0.2s,
+    background 0.3s,
+    transform 0.15s;
+  position: relative;
+  width: clamp(72px, 20vmin, 140px);
+  height: clamp(72px, 20vmin, 140px);
+
+  &.active {
+    border-color: var(--active);
+    box-shadow:
+      0 0 0 1px var(--active),
+      0 0 20px rgba(255, 215, 0, 0.15);
+    transform: scale(1.04);
+    z-index: 2;
+  }
+
+  &.won-x {
+    background: var(--won-x);
+    border-color: var(--x-color);
+  }
+
+  &.won-o {
+    background: var(--won-o);
+    border-color: var(--o-color);
+  }
+
+  &.drawn {
+    background: var(--draw);
+    border-color: var(--dim);
+  }
+
+  &.won-x::after,
+  &.won-o::after,
+  &.drawn::after {
+    content: attr(data-winner);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  &.won-x::after {
+    color: var(--x-color);
+    text-shadow: 0 0 30px rgba(255, 64, 96, 0.5);
+  }
+
+  &.won-o::after {
+    color: var(--o-color);
+    text-shadow: 0 0 30px rgba(64, 208, 255, 0.5);
+  }
+
+  &.drawn::after {
+    color: var(--dim);
+    content: '—';
+  }
+
+  &.resetting {
+    animation: boardReset 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+  }
+}
+
+.draw-toast {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dim);
+  color: var(--bg);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  border-radius: 3px;
+  white-space: nowrap;
+  animation: toastPop 1.8s ease forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes boardReset {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  15% {
+    transform: scale(1.08);
+    filter: brightness(1.8) saturate(0);
+  }
+  30% {
+    transform: scale(0.92) rotate(-3deg);
+    filter: brightness(0.6) saturate(0);
+  }
+  50% {
+    transform: scale(1.05) rotate(2deg);
+    filter: brightness(1.4) saturate(0);
+  }
+  70% {
+    transform: scale(0.97) rotate(-1deg);
+    filter: brightness(0.9);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+}
+
+@keyframes toastPop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-6px);
+  }
+}

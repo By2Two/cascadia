@@ -1,0 +1,5 @@
+<div id="win-overlay" [class.show]="isVisible">
+  <div id="win-msg" [class]="winClass">{{ winMessage }}</div>
+  <div id="win-sub">{{ winSubtext }}</div>
+  <button id="restart-btn" (click)="onRestart()">PLAY AGAIN</button>
+</div>

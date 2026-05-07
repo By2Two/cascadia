@@ -1,0 +1,28 @@
+<app-turn-display
+  [currentPlayer]="currentPlayer()"
+  [nextBoard]="nextBoard()"
+  [hasWinner]="megaWinner() !== null"
+/>
+
+<div id="mega-board" [class.won-x]="megaWinner() === 'X'" [class.won-o]="megaWinner() === 'O'">
+  @for (boardIndex of getBoardIndexes(); track boardIndex) {
+    <app-mini-board
+      [boardState]="miniStates()[boardIndex]"
+      [isActive]="isBoardActive(boardIndex)"
+      [isFull]="isBoardFull(boardIndex)"
+      [drawResetCounter]="drawResetCounters()[boardIndex]"
+      (cellPlayed)="onCellPlayed(boardIndex, $event)"
+    />
+  }
+</div>
+
+<div class="action-buttons">
+  <button id="reset-btn" (click)="onReset()">↺ RESTART</button>
+  <button id="home-btn" (click)="onBackToHome()">← HOME</button>
+</div>
+
+<div id="legend">
+  Your move decides your opponent's next board · Draw resets the mini-board · Win 3 in a row to win
+</div>
+
+<app-win-overlay [winner]="megaWinner()" (restart)="onReset()" />
